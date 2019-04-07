@@ -5,15 +5,21 @@ import rgba from 'hex-to-rgba';
 import Icon from 'react-native-vector-icons';
 // alternative for expo LinearGradient
 // import LinearGradient  from 'react-native-linear-gradient';
+var TimerMixin = require('react-timer-mixin');
+var reactMixin = require('react-mixin');
+
+
+import { connect } from 'react-redux';
 
 import { Block, Badge, Card, Text, } from '../components';
 import { styles as blockStyles } from '../components/Block';
 import { styles as cardStyles } from '../components/Card';
 import { theme, mocks } from '../constants';
+import * as actions from '../Action';
 
 const { width } = Dimensions.get('window');
 
-export default class Welcome extends Component {
+class Welcome extends Component {
   static navigationOptions = {
     headerTitle: <Text style={theme.fonts.header}>Welcome</Text>,
     headerRight: (
@@ -33,6 +39,19 @@ export default class Welcome extends Component {
       </TouchableOpacity>
     )
   }
+ 
+  componentWillMount(){
+  
+    
+    this.setInterval(() => {
+      let counter = this.props.dispatch(actions.get_usage_by_row());
+      this.props.dispatch(actions.get_usage_by_id(counter));
+      console.log(this.counter);
+    }, 2200);
+    
+    
+}
+  
 
   renderMonthly() {
     const { navigation } = this.props;
@@ -93,8 +112,8 @@ export default class Welcome extends Component {
           </Badge>
         </Block>
         <Block middle>
-          <Text size={theme.sizes.base} spacing={0.4} medium white>Wohoo!</Text>
-          <Text size={theme.sizes.base} spacing={0.4} medium white>Safe Driver Trophy!</Text>
+          <Text size={theme.sizes.base} spacing={0.4} medium white>Refill!</Text>
+          <Text size={theme.sizes.base} spacing={0.4} medium white>the refill value was 42.1L</Text>
         </Block>
       </LinearGradient>
     )
@@ -207,3 +226,13 @@ const styles = StyleSheet.create({
     bottom: 0,
   }
 })
+function mapStateToProps(state){
+
+  return{
+      usage: state.usage.data,
+      counter: state.row
+  }
+}
+reactMixin(Welcome.prototype, TimerMixin);
+
+export default connect(mapStateToProps)(Welcome);

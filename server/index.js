@@ -21,7 +21,7 @@ mongoose.connect(config.DB_URI,options)
                                                 if(rowNumber !== 1){
                                                 console.log(rowNumber)    
                                                 const fakeob = new fakedb(rows,rowNumber);
-                                                sleep(100); 
+                                                sleep(1000); 
                                                 fakeob.seedDB();
                                                 }
                                                 else{
@@ -52,21 +52,3 @@ app.listen(PORT, function(){
 });
 
 
-// var workbook = new Excel.Workbook();
-// workbook.xlsx.readFile("./file_assets/Second_Car.xlsx").then(function(){
-// const worksheet = workbook.getWorksheet(1);
-    
-//         worksheet.eachRow((rows) => {
-
-//             console.log(rows.values[2])
-//             const fakeob = new fakedb(rows);
-//             fakeob.seedDB();
-
-//         })
-    
-   
-
-    
-// }).catch(function(err){
-//     console.log("failed to load"+err);
-// })

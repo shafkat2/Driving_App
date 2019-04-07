@@ -8,6 +8,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Block, Badge, Card, Text } from '../components';
 import { theme, mocks, mapStyles } from '../constants';
 import { styles as blockStyles } from '../components/Block';
+import { connect } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 

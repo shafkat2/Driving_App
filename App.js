@@ -2,9 +2,12 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { AppLoading, Font } from 'expo';
 
+import {Provider} from "react-redux";
 import Navigation from './navigation';
 import { Block, Text } from './components';
+import {init} from './Reducers';
 
+const store = init();
 export default class App extends React.Component {
   // add fonts support
   state = {
@@ -36,9 +39,11 @@ export default class App extends React.Component {
     }
 
     return (
+      <Provider store = {store}>
       <Block>
         <Navigation />
       </Block>
+      </Provider>
     );
   }
 }

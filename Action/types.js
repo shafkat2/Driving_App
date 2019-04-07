@@ -1,0 +1,4 @@
+export const fetch_rentals = "FETCH_RENTALS";
+export const FETCH_USAGE_BY_ID_SUCCESS = "FETCH_USAGE_BY_ID_SUCCESS";
+export const FETCH_USAGE_BY_IDINIT = "FETCH_USAGE_BY_IDINIT";
+export const FETCH_USAGE_SUCCESS = "FETCH_USAGE_SUCCESS";
