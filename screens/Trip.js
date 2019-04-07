@@ -5,6 +5,12 @@ import Icon from 'react-native-vector-icons';
 import { CircularProgress } from 'react-native-circular-progress';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
+var TimerMixin = require('react-timer-mixin');
+var reactMixin = require('react-mixin');
+import * as actions from '../Action';
+
+
+
 import { Block, Badge, Card, Text } from '../components';
 import { theme, mocks, mapStyles } from '../constants';
 import { styles as blockStyles } from '../components/Block';
@@ -12,7 +18,23 @@ import { connect } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 
-export default class Trip extends Component {
+class Trip extends Component {
+
+  componentWillMount(){
+  
+    
+    this.setInterval(() => {
+
+      this.props.dispatch(actions.get_usage_by_row());
+      this.props.dispatch(actions.get_usage_by_id(this.props.counter));
+      console.log(this.props.usage);
+      console.log(this.props.counter);
+    }, 5200);
+    
+    
+}
+
+
   static navigationOptions = ({ navigation }) => {
     const showMap = navigation.getParam('map');
 
@@ -46,7 +68,7 @@ export default class Trip extends Component {
         <Block center>
           <CircularProgress
             size={214} // can use  with * .5 => 50%
-            fill={85} // percentage
+            fill={this.props.usage.Voltage/100} // percentage
             lineCap="round" // line ending style
             rotation={220}
             arcSweepAngle={280}
@@ -57,8 +79,8 @@ export default class Trip extends Component {
           >
             {() => (
               <Block center middle>
-                <Text h2 medium>7.2</Text>
-                <Text h3 transform="uppercase">Fair</Text>
+                <Text h2 medium>{this.props.usage.Voltage}</Text>
+                <Text h3 transform="uppercase">Engine Voltage</Text>
               </Block>
             )}
           </CircularProgress>
@@ -69,8 +91,8 @@ export default class Trip extends Component {
             Current Score
           </Text>
           <Text>
-            <Text primary>+$4 </Text>
-            <Text gray transform="uppercase">challenge bonus</Text>
+            <Text primary>Good </Text>
+            <Text gray transform="uppercase"> Condition</Text>
           </Text>
         </Block>
       </Card>
@@ -81,7 +103,7 @@ export default class Trip extends Component {
     return (
       <Card style={{ padding: 0, overflow: 'hidden' }}>
         <MapView
-          region={mocks.location}
+          region={this.props.usage.Coordinates}
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyles}
           style={styles.map}
@@ -89,7 +111,7 @@ export default class Trip extends Component {
           <Marker
             rotation={-15}
             anchor={{ x: 0.5, y: 0.5 }}
-            coordinate={{ latitude: 40.728399, longitude: -73.883771 }}
+            coordinate={{ latitude: this.props.usage.Coordinates.Lat, longitude: this.props.usage.Coordinates.long }}
           >
             <Badge color={rgba(theme.colors.primary, '0.2')} size={77}>
               <TouchableOpacity activeOpacity={0.8}>
@@ -125,19 +147,19 @@ export default class Trip extends Component {
           <Text
             title
             transform="capitalize"
-            accent={drive.status === 'bad'}
-            tertiary={drive.status === 'fair'}
+            accent={this.props.usage.Battery_Status === false}
+            tertiary={this.props.usage.Battery_Status === true}
             primary={drive.status === 'good'}
             height={22}
           >
-            {drive.status}
+            {this.props.usage.Battery_Status ? "battery on":"battery off"}
           </Text>
           
           <Text
             transform="capitalize"
             spacing={0.7}
           >
-            {drive.action}
+            {this.props.usage.Status ? "engine off":"engine on"}
           </Text>
         </Card>
       </TouchableOpacity>
@@ -174,7 +196,7 @@ export default class Trip extends Component {
         <Block row space="between" style={{ paddginVertical: theme.sizes.base * 2 }}>
           <Block center>
             <Text h3 gray medium>55</Text>
-            <Text h3 gray medium>mph</Text>
+            <Text h3 gray medium>mps</Text>
           </Block>
 
           <Block />
@@ -252,3 +274,13 @@ const styles = StyleSheet.create({
     bottom: 0,
   }
 })
+function mapStateToProps(state){
+
+  return{
+      usage: state.usage.data,
+      counter: state.counter.row
+  }
+}
+reactMixin(Trip.prototype, TimerMixin);
+
+export default connect(mapStateToProps)(Trip);

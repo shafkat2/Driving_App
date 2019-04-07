@@ -13,11 +13,11 @@ const get_usage_by_idinit = ()=>{
 
 }
 
-const get_usage_by_counter = (count)=>{
+const get_usage_by_counter = ()=>{
     
     return{
         type:FETCH_USAGE_BY_COUNTER,
-        count
+        
     }
 
 }
@@ -35,9 +35,7 @@ export const get_usage_by_id = (usageid)=>{
 
     return function(dispatch){
 
-        dispatch(get_usage_by_idinit());
-
-        axios.get(`http://localhost:3000/api/v1/drive${usageid}`).then((usage)=>{
+        axios.get(`http://192.168.0.104:3001/api/v1/drive/${usageid}`).then((usage)=>{
             
             dispatch(fetchUsagesbyidSu(usage.data));
         });

@@ -19,7 +19,9 @@ import * as actions from '../Action';
 
 const { width } = Dimensions.get('window');
 
+
 class Welcome extends Component {
+  
   static navigationOptions = {
     headerTitle: <Text style={theme.fonts.header}>Welcome</Text>,
     headerRight: (
@@ -42,12 +44,14 @@ class Welcome extends Component {
  
   componentWillMount(){
   
-    let count = 0;
+    
     this.setInterval(() => {
-      let counter = this.props.dispatch(actions.get_usage_by_row(count));
-      this.props.dispatch(actions.get_usage_by_id(counter));
-      console.log(this.counter);
-    }, 2200);
+
+      this.props.dispatch(actions.get_usage_by_row());
+      this.props.dispatch(actions.get_usage_by_id(this.props.counter));
+      console.log(this.props.usage);
+      console.log(this.props.counter);
+    }, 5200);
     
     
 }
@@ -70,25 +74,25 @@ class Welcome extends Component {
 
           <Block>
             <Block center>
-              <Text h1 primary spacing={1.7}>$11.71</Text>
-              <Text spacing={0.7}>Total Monthly Rewards</Text>
+              <Text h1 primary spacing={1.7}>{this.props.usage.Fuel_Information}</Text>
+              <Text spacing={0.7}>Fuel Information</Text>
             </Block>
 
             <Block color="gray3" style={styles.hLine} />
 
             <Block row>
               <Block center>
-                <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>8.1</Text>
+                <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>{this.props.usage.TravelDistance}</Text>
                 <Text body spacing={0.7}>Driving</Text>
-                <Text body spacing={0.7}>Score</Text>
+                <Text body spacing={0.7}>Speed</Text>
               </Block>
 
               <Block flex={false} color="gray3" style={styles.vLine} />
 
               <Block center>
-                <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>37</Text>
-                <Text body spacing={0.7}>Driver's</Text>
-                <Text body spacing={0.7}>Level</Text>
+                <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>{this.props.usage.Velocity}</Text>
+                <Text body spacing={0.7}>Car's</Text>
+                <Text body spacing={0.7}>Velocity</Text>
               </Block>
             </Block>
           </Block>
@@ -230,7 +234,7 @@ function mapStateToProps(state){
 
   return{
       usage: state.usage.data,
-      counter: state.row
+      counter: state.counter.row
   }
 }
 reactMixin(Welcome.prototype, TimerMixin);
