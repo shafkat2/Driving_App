@@ -42,9 +42,9 @@ class Welcome extends Component {
  
   componentWillMount(){
   
-    
+    let count = 0;
     this.setInterval(() => {
-      let counter = this.props.dispatch(actions.get_usage_by_row());
+      let counter = this.props.dispatch(actions.get_usage_by_row(count));
       this.props.dispatch(actions.get_usage_by_id(counter));
       console.log(this.counter);
     }, 2200);

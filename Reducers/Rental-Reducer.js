@@ -13,7 +13,7 @@ export const usageIDReducer = (state =  Initial_state.usage,action) => {
         case FETCH_USAGE_BY_IDINIT :
             return {...state,data: {}}; 
         case FETCH_USAGE_BY_ID_SUCCESS:
-            return {...state, data: data.usage};
+            return {...state, data: action.usage};
         
            
         default:
@@ -25,7 +25,7 @@ export const usageIDReducer = (state =  Initial_state.usage,action) => {
 export const counter = (state =  Initial_state.row,action) => {
     switch(action.type){
         case FETCH_USAGE_BY_COUNTER:
-            return {...state, data: state.row +1};
+            return {...state, row: action.count +1};
         
            
         default:

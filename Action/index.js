@@ -8,16 +8,16 @@ import axios from 'axios';
 const get_usage_by_idinit = ()=>{
     
     return{
-        type:FETCH_USAGE_BY_IDINIT
+        type:FETCH_USAGE_BY_IDINIT,
     }
 
 }
 
-const get_usage_by_counter = ()=>{
+const get_usage_by_counter = (count)=>{
     
     return{
         type:FETCH_USAGE_BY_COUNTER,
-       
+        count
     }
 
 }
