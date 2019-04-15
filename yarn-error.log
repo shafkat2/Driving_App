@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add Reducers
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js cache clean
 
 PATH: 
-  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;E:\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\Java\jdk1.8.0_201\bin;C:\Users\shafkat\AppData\Local\Programs\Python\Python37-32\;C:\Users\shafkat\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Program Files (x86)\Yarn\bin\;C:\Users\shafkat\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\shafkat\AppData\Local\Programs\Python\Python37-32\;C:\Users\shafkat\AppData\Local\Microsoft\WindowsApps;C:\Users\shafkat\AppData\Local\atom\bin;C:\Users\shafkat\AppData\Local\Microsoft\WindowsApps;;C:\Users\shafkat\AppData\Local\Programs\Microsoft VS Code\bin;E:\Microsoft VS Code\bin;C:\Users\shafkat\AppData\Roaming\npm;C:\Users\shafkat\AppData\Local\Yarn\bin
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;E:\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\Java\jdk1.8.0_201\bin;C:\Program Files (x86)\Yarn\bin\;C:\Users\shafkat\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\shafkat\AppData\Local\Programs\Python\Python36\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;E:\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\Java\jdk1.8.0_201\bin;C:\Program Files (x86)\Yarn\bin\;C:\Users\shafkat\AppData\Local\Microsoft\WindowsApps;C:\Users\shafkat\AppData\Local\atom\bin;C:\Users\shafkat\AppData\Local\Microsoft\WindowsApps;C:\Users\shafkat\AppData\Local\Programs\Microsoft VS Code\bin;E:\Microsoft VS Code\bin;C:\Users\shafkat\AppData\Roaming\npm;C:\Users\shafkat\AppData\Local\Yarn\bin;
 
 Yarn version: 
   1.15.2
@@ -14,17 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/Reducers: Not found
-      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65167:18)
-      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:129541:22)
-      at Request.emit (events.js:189:13)
-      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130513:10)
-      at Request.emit (events.js:189:13)
-      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130435:12)
-      at Object.onceWrapper (events.js:277:13)
-      at IncomingMessage.emit (events.js:194:15)
-      at endReadableNT (_stream_readable.js:1103:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  Error: UNKNOWN: unknown error, scandir 'C:\Users\shafkat\AppData\Local\Yarn\Cache\v4\npm-react-mixin-5.0.0-6c24db9b7e33d7d319544a61bd83707cf228d596\node_modules\react-mixin'
 
 npm manifest: 
   {
@@ -36,6 +26,7 @@ npm manifest:
       "eject": "expo eject"
     },
     "dependencies": {
+      "axios": "^0.18.0",
       "exceljs": "^1.9.0",
       "expo": "^32.0.0",
       "express": "^4.16.4",
@@ -51,6 +42,7 @@ npm manifest:
       "react-navigation": "^3.5.0",
       "react-redux": "^6.0.1",
       "react-timer-mixin": "^0.13.4",
+      "reducers": "^3.0.0-alpha",
       "redux": "^4.0.1",
       "redux-thunk": "^2.3.0",
       "system-sleep": "^1.3.6"
@@ -1246,6 +1238,14 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
     integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
   
+  axios@^0.18.0:
+    version "0.18.0"
+    resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+    integrity sha1-MtU+SFHv3AoRmTts0AB4nXDAUQI=
+    dependencies:
+      follow-redirects "^1.3.0"
+      is-buffer "^1.1.5"
+  
   babel-code-frame@^6.26.0:
     version "6.26.0"
     resolved "https://registry.yarnpkg.com/babel-code-frame/-/babel-code-frame-6.26.0.tgz#63fd43f7dc1e3bb7ce35947db8fe369a3f58c74b"
@@ -2368,6 +2368,13 @@ Lockfile:
     dependencies:
       ms "2.0.0"
   
+  debug@^3.2.6:
+    version "3.2.6"
+    resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
+    integrity sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==
+    dependencies:
+      ms "^2.1.1"
+  
   debug@^4.1.0:
     version "4.1.1"
     resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
@@ -3291,6 +3298,13 @@ Lockfile:
     integrity sha512-1yD6RmLI1XBfxugvORwlck6f75tYL+iR0jqwsOrOxMZyGYqUuDhJ0l4AXdO1iX/FTs9cBAMEk1gWSEx1kSbylg==
     dependencies:
       locate-path "^3.0.0"
+  
+  follow-redirects@^1.3.0:
+    version "1.7.0"
+    resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.7.0.tgz#489ebc198dc0e7f64167bd23b03c4c19b5784c76"
+    integrity sha512-m/pZQy4Gj287eNy94nivy5wchN3Kp+Q5WgUPNy5lJSZ3sgkVKSYV/ZChMAQVIgx1SqfZ2zBZtPA2YlXIWxxJOQ==
+    dependencies:
+      debug "^3.2.6"
   
   for-in@^1.0.1, for-in@^1.0.2:
     version "1.0.2"
@@ -4354,6 +4368,11 @@ Lockfile:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.1.tgz#38bebf80c3220a8a487b6fcfb3941bb11720c145"
     integrity sha512-VjFo4P5Whtj4vsLzsYBu5ayHhoHJ0UqNm7ibvShmbmoz7tGi0vXaoJbGdB+GmDMLUdg8DpQXEIeVDAe8MaABvQ==
+  
+  method@~2.0.x:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/method/-/method-2.0.0.tgz#e449848defa6daef10b8163d9d9aa2d071b7500f"
+    integrity sha1-5EmEje+m2u8QuBY9nZqi0HG3UA8=
   
   methods@~1.1.2:
     version "1.1.2"
@@ -5803,6 +5822,20 @@ Lockfile:
       process-nextick-args "~1.0.6"
       string_decoder "~0.10.x"
       util-deprecate "~1.0.1"
+  
+  reducers@^3.0.0-alpha:
+    version "3.0.0-alpha"
+    resolved "https://registry.yarnpkg.com/reducers/-/reducers-3.0.0-alpha.tgz#0b784dd1199e56b2823f4ad60731c30fb6b0457e"
+    integrity sha1-C3hN0RmeVrKCP0rWBzHDD7awRX4=
+    dependencies:
+      reducible "~1.x.0"
+  
+  reducible@~1.x.0:
+    version "1.0.6"
+    resolved "https://registry.yarnpkg.com/reducible/-/reducible-1.0.6.tgz#331722d14189f8f392dc9b88341aec603b25c35e"
+    integrity sha1-Mxci0UGJ+POS3JuINBrsYDslw14=
+    dependencies:
+      method "~2.0.x"
   
   redux-thunk@^2.3.0:
     version "2.3.0"

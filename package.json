@@ -26,7 +26,8 @@
     "reducers": "^3.0.0-alpha",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "system-sleep": "^1.3.6"
+    "system-sleep": "^1.3.6",
+    "yarn": "^1.15.2"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

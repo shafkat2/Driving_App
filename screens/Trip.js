@@ -30,6 +30,13 @@ class Trip extends Component {
       console.log(this.props.usage);
       console.log(this.props.counter);
     }, 5200);
+
+    this.setInterval(() => {
+
+      this.props.dispatch(actions.get_usage_by_row());
+      console.log(this.props.refill);
+     
+    }, 20);
     
     
 }
@@ -103,7 +110,11 @@ class Trip extends Component {
     return (
       <Card style={{ padding: 0, overflow: 'hidden' }}>
         <MapView
-          region={this.props.usage.Coordinates}
+          showsMyLocationButton={true}
+          region={{  latitude: this.props.usage.Coordinates.long,
+            longitude: this.props.usage.Coordinates.long,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0922,}}
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyles}
           style={styles.map}
@@ -159,7 +170,7 @@ class Trip extends Component {
             transform="capitalize"
             spacing={0.7}
           >
-            {this.props.usage.Status ? "engine off":"engine on"}
+            {this.props.usage.Status ? "engine on":"engine off"}
           </Text>
         </Card>
       </TouchableOpacity>
@@ -278,7 +289,8 @@ function mapStateToProps(state){
 
   return{
       usage: state.usage.data,
-      counter: state.counter.row
+      counter: state.counter.row,
+      refill: state.refill.data
   }
 }
 reactMixin(Trip.prototype, TimerMixin);

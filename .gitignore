@@ -1,1 +1,3 @@
 node_modules
+server/config/
+Action/server_python/mongo_url.py

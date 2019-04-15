@@ -52,6 +52,13 @@ class Welcome extends Component {
       console.log(this.props.usage);
       console.log(this.props.counter);
     }, 5200);
+
+    this.setInterval(() => {
+
+      this.props.dispatch(actions.get_usage_by_row());
+      console.log(this.props.refill);
+     
+    }, 20);
     
     
 }
@@ -234,7 +241,8 @@ function mapStateToProps(state){
 
   return{
       usage: state.usage.data,
-      counter: state.counter.row
+      counter: state.counter.row,
+      refill: state.refill.data
   }
 }
 reactMixin(Welcome.prototype, TimerMixin);
