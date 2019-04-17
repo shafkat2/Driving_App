@@ -16,6 +16,7 @@ import { theme, mocks, mapStyles } from '../constants';
 import { styles as blockStyles } from '../components/Block';
 import { connect } from 'react-redux';
 
+
 const { width } = Dimensions.get('window');
 
 class Trip extends Component {
@@ -27,16 +28,14 @@ class Trip extends Component {
 
       this.props.dispatch(actions.get_usage_by_row());
       this.props.dispatch(actions.get_usage_by_id(this.props.counter));
-      console.log(this.props.usage);
-      console.log(this.props.counter);
     }, 5200);
 
     this.setInterval(() => {
 
-      this.props.dispatch(actions.get_usage_by_row());
-      console.log(this.props.refill);
+      this.props.dispatch(actions.get_refill());
+      
      
-    }, 20);
+    }, 10000);
     
     
 }
@@ -75,7 +74,7 @@ class Trip extends Component {
         <Block center>
           <CircularProgress
             size={214} // can use  with * .5 => 50%
-            fill={this.props.usage.Voltage/100} // percentage
+            fill={(this.props.usage.Fuel_Information/63)*100} // percentage
             lineCap="round" // line ending style
             rotation={220}
             arcSweepAngle={280}
@@ -86,8 +85,8 @@ class Trip extends Component {
           >
             {() => (
               <Block center middle>
-                <Text h2 medium>{this.props.usage.Voltage}</Text>
-                <Text h3 transform="uppercase">Engine Voltage</Text>
+                <Text h2 medium>{Number(this.props.usage.Fuel_Information).toFixed(2)}</Text>
+                <Text h3 transform="uppercase">Available Fuel</Text>
               </Block>
             )}
           </CircularProgress>
@@ -95,7 +94,7 @@ class Trip extends Component {
 
         <Block center>
           <Text title spacing={1} style={{ marginVertical: 8 }}>
-            Current Score
+            Current Engine Status
           </Text>
           <Text>
             <Text primary>Good </Text>
@@ -111,10 +110,10 @@ class Trip extends Component {
       <Card style={{ padding: 0, overflow: 'hidden' }}>
         <MapView
           showsMyLocationButton={true}
-          region={{  latitude: this.props.usage.Coordinates.long,
+          region={{  latitude: this.props.usage.Coordinates.Lat,
             longitude: this.props.usage.Coordinates.long,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0922,}}
+            latitudeDelta: 0.06,
+            longitudeDelta: 0.06,}}
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyles}
           style={styles.map}

@@ -12,6 +12,7 @@ from scipy.signal import savgol_filter
 import pywt
 from statsmodels.robust import mad
 from sklearn.cluster import SpectralClustering
+import uuid
 
 from scipy.signal import sosfiltfilt, butter
 
@@ -529,12 +530,12 @@ def Peak_analysis_IQR(Si,refill,column,window_median,polyorder,window_golay,mode
 def Usage_data(S,refill_aggregate,dp):  
   #start is bigger stop is smaller,
   # indexing dont count the last index
+
   S_new = S.copy(deep = True)
 
   S_test1 = 0
   S_total = 0
   X_start = 0
-
 
   refill_value = []
   After_refill_usage = []
@@ -549,7 +550,6 @@ def Usage_data(S,refill_aggregate,dp):
       X_start = refill_aggregate["Index_stop"].loc[x]
       S_total = S_total+ S_test1
       
-      
      
       refill_value.append(refill_aggregate["volume"].loc[x])
       Date.append(dp.loc[refill_aggregate["Index_start"].loc[x]])
@@ -560,7 +560,6 @@ def Usage_data(S,refill_aggregate,dp):
     S_test1 =S_new[0].loc[S_new.shape[0]-1] - S_new[0].loc[refill_aggregate["Index_stop"].loc[refill_aggregate.shape[0]-1]]
     S_total = S_total+ S_test1
       
-   
     refill_value.append(0)
     Date.append(0)
     After_refill_usage.append(S_test1)
@@ -570,7 +569,6 @@ def Usage_data(S,refill_aggregate,dp):
     S_test1 =S_new[0].loc[X_start] - S_new[0].loc[S_new.shape[0]-1]
     S_total = S_total + S_test1
       
-
     refill_value.append(0)
     Date.append(0)
     After_refill_usage.append(S_test1)

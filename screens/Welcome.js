@@ -17,6 +17,7 @@ import { styles as cardStyles } from '../components/Card';
 import { theme, mocks } from '../constants';
 import * as actions from '../Action';
 
+
 const { width } = Dimensions.get('window');
 
 
@@ -49,16 +50,15 @@ class Welcome extends Component {
 
       this.props.dispatch(actions.get_usage_by_row());
       this.props.dispatch(actions.get_usage_by_id(this.props.counter));
-      console.log(this.props.usage);
-      console.log(this.props.counter);
     }, 5200);
 
     this.setInterval(() => {
 
-      this.props.dispatch(actions.get_usage_by_row());
-      console.log(this.props.refill);
+      this.props.dispatch(actions.get_refill());
+      this.props.dispatch(actions.get_refill_latest());
+      console.log(this.props.latest)
      
-    }, 20);
+    }, 10000);
     
     
 }
@@ -81,7 +81,7 @@ class Welcome extends Component {
 
           <Block>
             <Block center>
-              <Text h1 primary spacing={1.7}>{this.props.usage.Fuel_Information}</Text>
+              <Text h1 primary spacing={1.7}>{Number(this.props.usage.Fuel_Information).toFixed(2)}</Text>
               <Text spacing={0.7}>Fuel Information</Text>
             </Block>
 
@@ -97,7 +97,7 @@ class Welcome extends Component {
               <Block flex={false} color="gray3" style={styles.vLine} />
 
               <Block center>
-                <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>{this.props.usage.Velocity}</Text>
+                <Text size={20} spacing={0.6} primary style={{ marginBottom: 6 }}>{Number(this.props.usage.Velocity).toFixed(2)}</Text>
                 <Text body spacing={0.7}>Car's</Text>
                 <Text body spacing={0.7}>Velocity</Text>
               </Block>
@@ -123,26 +123,25 @@ class Welcome extends Component {
           </Badge>
         </Block>
         <Block middle>
-          <Text size={theme.sizes.base} spacing={0.4} medium white>Refill!</Text>
-          <Text size={theme.sizes.base} spacing={0.4} medium white>the refill value was 42.1L</Text>
+          <Text size={theme.sizes.base} spacing={0.4} medium white>Last Refill!</Text>
+          <Text size={theme.sizes.base} spacing={0.4} medium white>the refill value was {this.props.latest.Refill_value}</Text>
         </Block>
       </LinearGradient>
     )
   }
 
   renderTrip = trip => {
-    return (
-      <Card shadow key={`trip-${trip.id}`}>
+    return (  
+      <Card shadow key={`trip-${trip._id}`}>
         <Block row space="between" style={{ marginBottom: theme.sizes.base }}>
-          <Text spacing={0.5} caption>{trip.date}</Text>
-          <Text spacing={0.5} caption medium primary>{trip.score}</Text>
-          <Text spacing={0.5} caption>{trip.distance}</Text>
+          <Text spacing={0.5} caption>{trip.Date_index}</Text>
+          <Text spacing={0.5} caption>{Number(trip.total_fuel_usage).toFixed(2)}</Text>
         </Block>
         <Block row center>
           <Badge color={rgba(theme.colors.accent, '0.2')} size={14} style={{ marginRight: 8 }}>
             <Badge color={theme.colors.accent} size={8} />  
           </Badge>
-          <Text spacing={0.5} color="gray">{trip.from}</Text>
+          <Text spacing={0.5} color="gray">Refill: {Number(trip.Refill_value).toFixed(2)} L</Text>
         </Block>
 
         <Block row center style={{ paddingVertical: 4 }}>
@@ -153,9 +152,10 @@ class Welcome extends Component {
           <Badge color={rgba(theme.colors.primary, '0.2')} size={14} style={{ marginRight: 8 }}>
             <Badge color={theme.colors.primary} size={8} />  
           </Badge>
-          <Text spacing={0.5} color="gray">{trip.to}</Text>
+          <Text spacing={0.5} color="gray">Fuel Used: {Number(trip.After_refill_usage).toFixed(2)} L</Text>
         </Block>
       </Card>
+    
     )
   }
 
@@ -164,11 +164,11 @@ class Welcome extends Component {
       <React.Fragment>
         <Block style={{ marginBottom: theme.sizes.base }}>
           <Text spacing={0.4} transform="uppercase">
-            Recent Trips
+            Recent Refills
           </Text>
         </Block>
 
-        {mocks.trips.map(trip => this.renderTrip(trip))}
+        {this.props.refill.map(trip => this.renderTrip(trip))}
       </React.Fragment>
     )
   }
@@ -242,7 +242,8 @@ function mapStateToProps(state){
   return{
       usage: state.usage.data,
       counter: state.counter.row,
-      refill: state.refill.data
+      refill: state.refill.data,
+      latest: state.latest.data
   }
 }
 reactMixin(Welcome.prototype, TimerMixin);
