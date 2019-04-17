@@ -16,7 +16,7 @@ mongoose.connect(config.DB_URI,options)
                     .then(()=>{
                             console.log("mongoDb Connected ....")
                             var workbook = new Excel.Workbook();
-                            workbook.xlsx.readFile("./file_assets/capstone.xlsx").then(function(){
+                            workbook.xlsx.readFile("./file_assets/Second_Car.xlsx").then(function(){
                             const worksheet = workbook.getWorksheet(1);                
                                           worksheet.eachRow((rows,rowNumber)=>{  
                                                 if(rowNumber !== 1){
